@@ -17,3 +17,10 @@ class Perceptron:
             return 1
         else:
             return -1
+
+    def feedforward(self, inputs):
+        total = 0
+        for each in xrange(0, len(inputs)):
+            total += inputs[each] * self.weights[each]
+
+        return self.activate(total)
