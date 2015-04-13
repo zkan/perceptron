@@ -1,5 +1,7 @@
-from perceptron import Perceptron
+from mock import call, patch
 import unittest
+
+from perceptron import Perceptron
 
 
 class PerceptronTest(unittest.TestCase):
@@ -35,6 +37,29 @@ class PerceptronTest(unittest.TestCase):
         actual = self.perceptron.get_weights()
 
         self.assertEqual(actual, expected)
+
+    @patch('perceptron.random.uniform')
+    def test_give_weights_random_value_when_create_perceptron(
+        self,
+        mock_uniform
+    ):
+        expected = [0.1, 0.2, 0.3]
+        mock_uniform.side_effect = expected
+
+        perceptron = Perceptron()
+
+        actual = perceptron.get_weights()
+
+        self.assertEqual(actual, expected)
+
+        self.assertEqual(mock_uniform.call_count, 3)
+
+        expected_calls = [
+            call(-1, 1),
+            call(-1, 1),
+            call(-1, 1)
+        ]
+        self.assertEqual(mock_uniform.mock_calls, expected_calls)
 
 
 if __name__ == '__main__':
