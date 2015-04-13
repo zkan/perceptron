@@ -92,6 +92,40 @@ class PerceptronTest(unittest.TestCase):
         expected = -1
         self.assertEqual(actual, expected)
 
+    @patch('perceptron.random.uniform')
+    def test_train_returns_new_adjusted_weights_in_positive_direction(
+        self,
+        mock_uniform
+    ):
+        expected = [0.1, 0.2, 0.3]
+        mock_uniform.side_effect = expected
+
+        inputs = [1, -3, 1]
+        desired = 1
+
+        perceptron = Perceptron()
+        actual = perceptron.train(inputs, desired)
+
+        expected = [0.12000000000000001, 0.14, 0.32]
+        self.assertEqual(actual, expected)
+
+    @patch('perceptron.random.uniform')
+    def test_train_returns_new_adjusted_weights_in_negative_direction(
+        self,
+        mock_uniform
+    ):
+        expected = [0.2, 0.1, 0.3]
+        mock_uniform.side_effect = expected
+
+        inputs = [1, -3, 1]
+        desired = -1
+
+        perceptron = Perceptron()
+        actual = perceptron.train(inputs, desired)
+
+        expected = [0.18000000000000002, 0.16, 0.27999999999999997]
+        self.assertEqual(actual, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
