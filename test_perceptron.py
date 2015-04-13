@@ -28,6 +28,14 @@ class PerceptronTest(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_get_weights_returns_weights_stored_in_perceptron(self):
+        self.perceptron.weights = [0.5, 0.5, 0.5]
+
+        expected = [0.5, 0.5, 0.5]
+        actual = self.perceptron.get_weights()
+
+        self.assertEqual(actual, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
