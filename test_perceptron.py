@@ -84,7 +84,7 @@ class PerceptronTest(unittest.TestCase):
         expected = [0.1, 0.2, 0.3]
         mock_uniform.side_effect = expected
 
-        inputs = [1, 1, -2]
+        inputs = [1, -3, 1]
 
         perceptron = Perceptron()
         actual = perceptron.feedforward(inputs)
